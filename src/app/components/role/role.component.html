@@ -1,3 +1,16 @@
-@for(role of roleList; track $index) {
-    <div class="">{{role.roleId}}</div>
-}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Role ID</th>
+            <th scope="col">Role Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(role of roleList; track $index) {
+        <tr>
+            <td>{{role.roleId}}</td>
+            <td>{{role.role}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
