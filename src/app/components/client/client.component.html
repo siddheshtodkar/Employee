@@ -1,1 +1,92 @@
-<p>client works!</p>
+<div class="row m-2 mt-4">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                Client Details
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Sr No.</th>
+                            <th scope="col">Contact Person Name</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Contact No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(role of clientList; track $index) {
+                        <tr>
+                            <td>{{$index + 1}}</td>
+                            <td>{{role.contactPersonName}}</td>
+                            <td>{{role.companyName}}</td>
+                            <td>{{role.city}}</td>
+                            <td>{{role.contactNo}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                New Client
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">Contact Person Name</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.contactPersonName" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Company Name</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.companyName" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Address</label>
+                        <textarea name="" id="" [(ngModel)]="clientObj.address" class="form-control"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <label for="">City</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.city" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Pincode</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.pincode" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">State</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.state" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Employee Strength</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.EmployeeStrength" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">GST No.</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.gstNo" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Contact No.</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.contactNo" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Registration No.</label>
+                        <input type="text" name="" id="" [(ngModel)]="clientObj.regNo" class="form-control">
+                    </div>
+                    <div class="row text-center mt-2">
+                        <div class="col">
+                            <button class="btn btn-secondary">Reset</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" (click)="addUpdateClient()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

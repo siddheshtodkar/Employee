@@ -1,3 +1,5 @@
+import { Client } from "../classes/client"
+
 export interface IRole {
     roleId: number,
     role: string
@@ -11,5 +13,5 @@ export interface IDesignation {
 export interface IResponse {
     message: string,
     result: boolean,
-    data: IRole[] | IDesignation[]
+    data: IRole[] | IDesignation[] | Client[] | null
 }
