@@ -31,7 +31,10 @@ export class ClientComponent {
   }
   deleteClientByClientId(id: number) {
     this.service.deleteClientByClientId(id).subscribe((res: IResponse) => {
-
+      alert(res.message)
+      if (res.result){
+        this.getAllClients()
+      }
     })
   }
   reset() {
