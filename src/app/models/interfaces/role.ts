@@ -13,7 +13,7 @@ export interface IDesignation {
 export interface IResponse {
     message: string,
     result: boolean,
-    data: IRole[] | IDesignation[] | Client[] | IEmployee[] | null
+    data: IRole[] | IDesignation[] | Client[] | IEmployee[] | IClientProject[] | null
 }
 
 export interface IEmployee {
@@ -23,4 +23,17 @@ export interface IEmployee {
     empEmailId: string
     empDesignation: string
     role: string
+}
+
+export interface IClientProject {
+    empName: string,
+    empId: number,
+    empCode: string,
+    empEmailId: string,
+    empDesignation: string,
+    projectName: string,
+    startDate: string,
+    expectedEndDate: string,
+    clientName: string,
+    clientProjectId: number
 }
