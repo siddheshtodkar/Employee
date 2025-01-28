@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { Client } from '../../models/classes/client';
 import { ClientService } from '../../services/client.service';
 import { UpperCasePipe } from '@angular/common';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-client',
-  imports: [FormsModule, UpperCasePipe],
+  imports: [FormsModule, UpperCasePipe, AlertComponent],
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
@@ -15,6 +16,8 @@ export class ClientComponent {
   service = inject(ClientService)
   clientObj: Client = new Client()
   clientList: Client[] = []
+  message: string = ''
+  alertType: string = ''
   constructor() { }
   getAllClients() {
     this.service.getAllClients().subscribe((res: IResponse) => {
@@ -23,7 +26,7 @@ export class ClientComponent {
   }
   addUpdateClient() {
     this.service.addUpdateClient(this.clientObj).subscribe((res: IResponse) => {
-      alert(res.message)
+      this.alert(res.message, 'success')
       if (res.result) {
         this.reset()
         this.getAllClients()
@@ -32,11 +35,15 @@ export class ClientComponent {
   }
   deleteClientByClientId(id: number) {
     this.service.deleteClientByClientId(id).subscribe((res: IResponse) => {
-      alert(res.message)
+      this.alert(res.message, 'danger')
       if (res.result) {
         this.getAllClients()
       }
     })
+  }
+  alert(message: string, alertType: string) {
+    this.message = message
+    this.alertType = alertType
   }
   reset() {
     this.clientObj = new Client()

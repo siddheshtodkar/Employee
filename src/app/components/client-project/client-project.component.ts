@@ -6,10 +6,11 @@ import { ClientService } from '../../services/client.service';
 import { EmployeeService } from '../../services/employee.service';
 import { ClientProjectService } from '../../services/client-project.service';
 import { DatePipe } from '@angular/common';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-client-project',
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, AlertComponent],
   templateUrl: './client-project.component.html',
   styleUrl: './client-project.component.css'
 })
@@ -35,6 +36,8 @@ export class ClientProjectComponent {
   clientService = inject(ClientService)
   employeeService = inject(EmployeeService)
   clientProjectService = inject(ClientProjectService)
+  message: string = ''
+  alertType: string = ''
   constructor() { }
   getAllClients() {
     this.clientService.getAllClients().subscribe((res: IResponse) => {
@@ -53,7 +56,7 @@ export class ClientProjectComponent {
   }
   addUpdateClientProject() {
     this.clientProjectService.addUpdateClientProject(this.projectForm.getRawValue()).subscribe((res: IResponse) => {
-      alert(res.message)
+      this.alert(res.message, 'success')
       if (res.result) {
         this.reset()
         this.getAllClientProjects()
@@ -61,6 +64,10 @@ export class ClientProjectComponent {
     })
   }
   reset() { }
+  alert(message: string, alertType: string) {
+    this.message = message
+    this.alertType = alertType
+  }
   ngOnInit() {
     this.getAllClientProjects()
     this.getAllClients()
