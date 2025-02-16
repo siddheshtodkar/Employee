@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
-export class MasterService {  
+export class MasterService {
   baseUrl: string = environment.API_URL
   constructor(private http: HttpClient) { }
 
@@ -17,5 +17,8 @@ export class MasterService {
   }
   getAllDesignation(): Observable<IResponse> {
     return this.http.get<IResponse>(`${this.baseUrl}/GetAllDesignation`)
+  }
+  getDasboardData(): Observable<IResponse> {
+    return this.http.get<IResponse>(`${this.baseUrl}/GetDasboardData`)
   }
 }
