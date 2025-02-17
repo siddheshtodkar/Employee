@@ -6,11 +6,13 @@
         </tr>
     </thead>
     <tbody>
+        @if (roleList$ | async; as roleList) {
         @for(role of roleList; track $index) {
         <tr>
             <td>{{role.roleId}}</td>
             <td>{{role.role}}</td>
         </tr>
+        }
         }
     </tbody>
 </table>
