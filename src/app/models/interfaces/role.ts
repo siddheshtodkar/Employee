@@ -1,4 +1,5 @@
 import { Client } from "../classes/client"
+import { IDesignation } from "./designation"
 
 export interface IRole {
     roleId: number,
@@ -9,11 +10,6 @@ export interface IRoleState {
     isLoading: boolean,
     roles: IRole[],
     error: string | null
-}
-
-export interface IDesignation {
-    designationId: number,
-    designation: string
 }
 
 export interface IResponse {

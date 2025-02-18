@@ -6,7 +6,7 @@ import { ClientProjectComponent } from './components/client-project/client-proje
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './auth.guard';
 import { masterEffects } from './store/master/master.effects';
-import { masterRoleReducer } from './store/master/master.reducers';
+import { masterDesignationReducer, masterRoleReducer } from './store/master/master.reducers';
 import { importProvidersFrom } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,6 +20,7 @@ export const routes: Routes = [
                 path: 'master', component: MasterComponent, providers: [
                     importProvidersFrom(
                         StoreModule.forFeature('roles', masterRoleReducer),
+                        StoreModule.forFeature('designations', masterDesignationReducer),
                         EffectsModule.forFeature([masterEffects])
                     )
                 ]

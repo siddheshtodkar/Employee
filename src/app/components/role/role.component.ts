@@ -1,9 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MasterService } from '../../services/master.service';
-import { IResponse, IRole } from '../../models/interfaces/role';
 import { Store } from '@ngrx/store';
 import * as masterActions from '../../store/master/master.actions'
-import { isFailureSelector, isLoadingSelector, isSuccessSelector } from '../../store/master/master.selectors';
+import { isFailureRolesSelector, isLoadingRolesSelector, isSuccessRolesSelector } from '../../store/master/master.selectors';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -19,9 +18,9 @@ export class RoleComponent implements OnInit {
   isLoading$
   error$
   constructor() {
-    this.isLoading$ = this.store.select(isLoadingSelector)
-    this.roleList$ = this.store.select(isSuccessSelector)
-    this.error$ = this.store.select(isFailureSelector)
+    this.isLoading$ = this.store.select(isLoadingRolesSelector)
+    this.roleList$ = this.store.select(isSuccessRolesSelector)
+    this.error$ = this.store.select(isFailureRolesSelector)
   }
   ngOnInit(): void {
     this.store.dispatch(masterActions.getAllRoles())

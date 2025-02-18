@@ -1,23 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MasterService } from '../../services/master.service';
-import { IResponse, IDesignation } from '../../models/interfaces/role';
-
+import { Store } from '@ngrx/store';
+import * as masterActions from '../../store/master/master.actions'
+import { isLoadingDesignationsSelector, isFailureDesignationsSelector, isSuccessDesignationsSelector } from '../../store/master/master.selectors';
+import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-designation',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './designation.component.html',
   styleUrl: './designation.component.css'
 })
 export class DesignationComponent {
-service = inject(MasterService)
-  designationsList: IDesignation[]=[]
-  constructor() { }
-  getAllDesignation() {
-    this.service.getAllDesignation().subscribe((res: IResponse) => {
-      this.designationsList = res.data as IDesignation[]
-    })
+  service = inject(MasterService)
+  store = inject(Store)
+  designationsList$
+  isLoading$
+  error$
+  constructor() {
+    this.isLoading$ = this.store.select(isLoadingDesignationsSelector)
+    this.designationsList$ = this.store.select(isSuccessDesignationsSelector)
+    this.error$ = this.store.select(isFailureDesignationsSelector)
   }
   ngOnInit(): void {
-    this.getAllDesignation()
+    this.store.dispatch(masterActions.getAllDesignations())
   }
 }

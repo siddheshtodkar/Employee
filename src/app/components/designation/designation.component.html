@@ -1,4 +1,5 @@
 <div class="row">
+    @if (designationsList$ | async; as designationsList) {
     @for (designation of designationsList; track $index) {
     <div class="card" style="width: 18rem;">
         <div class="card-body">
@@ -8,5 +9,6 @@
             <a href="#" class="card-link">Delete</a>
         </div>
     </div>
+    }
     }
 </div>
