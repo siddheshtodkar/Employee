@@ -3,6 +3,7 @@
         <tr>
             <th scope="col">Role ID</th>
             <th scope="col">Role Name</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -11,6 +12,7 @@
         <tr>
             <td>{{role.roleId}}</td>
             <td>{{role.role}}</td>
+            <td><button type="button" class="btn btn-danger" (click)="deleteRole(role.roleId)">Delete</button></td>
         </tr>
         }
         }

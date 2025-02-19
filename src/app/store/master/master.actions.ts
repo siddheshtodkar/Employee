@@ -9,3 +9,6 @@ export const getAllRolesFailure = createAction('[Master] Get Roles Failure', pro
 export const getAllDesignations = createAction('[Master] Get Designations')
 export const getAllDesignationsSuccess = createAction('[Master] Get Designations Success', props<{ designations: IDesignation[] }>())
 export const getAllDesignationsFailure = createAction('[Master] Get Designations Failure', props<{ error: string }>())
+
+export const deleteRoleById = createAction('[Master] Delete Role', props<{id:number}>())
+export const deleteDesignationById = createAction('[Master] Delete Designation', props<{id:number}>())

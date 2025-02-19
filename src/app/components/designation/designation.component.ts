@@ -21,6 +21,9 @@ export class DesignationComponent {
     this.designationsList$ = this.store.select(isSuccessDesignationsSelector)
     this.error$ = this.store.select(isFailureDesignationsSelector)
   }
+  deleteDesignation(id: number) {
+    this.store.dispatch(masterActions.deleteDesignationById({ id: id }))
+  }
   ngOnInit(): void {
     this.store.dispatch(masterActions.getAllDesignations())
   }

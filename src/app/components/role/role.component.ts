@@ -22,6 +22,9 @@ export class RoleComponent implements OnInit {
     this.roleList$ = this.store.select(isSuccessRolesSelector)
     this.error$ = this.store.select(isFailureRolesSelector)
   }
+  deleteRole(id:number) {
+    this.store.dispatch(masterActions.deleteRoleById({id:id}))
+  }
   ngOnInit(): void {
     this.store.dispatch(masterActions.getAllRoles())
   }

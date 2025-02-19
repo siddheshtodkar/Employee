@@ -21,4 +21,12 @@ export class MasterService {
   getDasboardData(): Observable<IResponse> {
     return this.http.get<IResponse>(`${this.baseUrl}/GetDasboardData`)
   }
+
+  // DELETE methods
+  deleteRoleById(id: number): Observable<IResponse> {
+    return this.http.delete<IResponse>(`${this.baseUrl}/DeleteRoleById?roleid=${id}`)
+  }
+  deleteDesignationById(id: number): Observable<IResponse> {
+    return this.http.delete<IResponse>(`${this.baseUrl}/DeleteDesignationById?designationId=${id}`)
+  }
 }

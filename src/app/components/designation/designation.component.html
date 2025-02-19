@@ -6,7 +6,7 @@
             <h5 class="card-title">{{designation.designation}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{designation.designationId}}</h6>
             <a href="#" class="card-link">Edit</a>
-            <a href="#" class="card-link">Delete</a>
+            <a (click)="deleteDesignation(designation.designationId)" class="card-link">Delete</a>
         </div>
     </div>
     }
