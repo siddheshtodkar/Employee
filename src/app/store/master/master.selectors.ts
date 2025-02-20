@@ -1,10 +1,11 @@
 import { createSelector } from "@ngrx/store";
 import { IAppState } from "../app.state";
-import { IRoleState } from "../../models/interfaces/role";
+import { IDashboard, IRoleState } from "../../models/interfaces/role";
 import { IDesignationState } from "../../models/interfaces/designation";
 
 export const selectRoles = (state: IAppState) => state.roles
 export const selectDesignations = (state: IAppState) => state.designations
+export const selectDashboard = (state: IAppState) => state.dashboard
 
 export const isLoadingRolesSelector = createSelector(
     selectRoles,
@@ -34,4 +35,9 @@ export const isSuccessDesignationsSelector = createSelector(
 export const isFailureDesignationsSelector = createSelector(
     selectDesignations,
     (state: IDesignationState) => state.error
+)
+
+export const getDashboardDataSelector = createSelector(
+    selectDashboard,
+    (state: IDashboard) => state
 )

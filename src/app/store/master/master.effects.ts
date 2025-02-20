@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { MasterService } from "../../services/master.service";
 import * as masterActions from './master.actions'
 import { catchError, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
-import { IRole } from "../../models/interfaces/role";
+import { IDashboard, IRole } from "../../models/interfaces/role";
 import { IDesignation } from "../../models/interfaces/designation";
 @Injectable()
 export class masterEffects {
@@ -32,7 +32,32 @@ export class masterEffects {
     deleteDesignation$ = createEffect(() => this.actions$.pipe(
         ofType(masterActions.deleteDesignationById),
         exhaustMap((action) => this.masterService.deleteDesignationById(action.id).pipe(
-            map(masterActions.getAllDesignations)
+            map(masterActions.deleteDesignationByIdSuccess)
+        ))
+    ))
+    reloadDashboard$ = createEffect(() => this.actions$.pipe(
+        ofType(masterActions.deleteDesignationByIdSuccess),
+        map(masterActions.getDashboardData)
+    ))
+    reloadDesignations$ = createEffect(() => this.actions$.pipe(
+        ofType(masterActions.deleteDesignationByIdSuccess),
+        map(masterActions.getAllDesignations)
+    ))
+    emptyDashboardData = {
+        totalClient: 0,
+        totalDesignation: 0,
+        totalEmployee: 0
+    }
+    getDashboardData$ = createEffect(() => this.actions$.pipe(
+        ofType(masterActions.getDashboardData),
+        mergeMap(() => this.masterService.getDasboardData().pipe(
+            map((res) => {
+                if (res.result)
+                    return masterActions.getDashboardDataComplete({ dashboardData: (res.data as IDashboard[])[0] })
+                else
+                    return masterActions.getDashboardDataComplete({ dashboardData: this.emptyDashboardData })
+            }),
+            catchError(() => of(masterActions.getDashboardDataComplete({ dashboardData: this.emptyDashboardData })))
         ))
     ))
 }

@@ -1,31 +1,32 @@
 import { Component, inject } from '@angular/core';
 import { RoleComponent } from '../role/role.component';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { DesignationComponent } from '../designation/designation.component';
 import { MasterService } from '../../services/master.service';
 import { IDashboard, IResponse } from '../../models/interfaces/role';
-
+import { Store } from '@ngrx/store';
+import * as masterActions from '../../store/master/master.actions'
+import { of } from 'rxjs';
+import { getDashboardDataSelector } from '../../store/master/master.selectors';
 @Component({
   selector: 'app-master',
-  imports: [RoleComponent, NgClass, DesignationComponent],
+  imports: [RoleComponent, NgClass, DesignationComponent, AsyncPipe],
   templateUrl: './master.component.html',
   styleUrl: './master.component.css'
 })
 export class MasterComponent {
   masterService = inject(MasterService)
+  store = inject(Store)
   componentSelected: string = 'Roles'
-  dashboardData: IDashboard = {
+  dashboardData$ = of({
     "totalClient": 0,
     "totalEmployee": 0,
     "totalDesignation": 0
-  }
-  getDasboardData() {
-    this.masterService.getDasboardData().subscribe((body: IResponse) => {
-      if (body.result)
-        this.dashboardData = body.data![0] as IDashboard
-    })
+  })
+  constructor() {
+    this.dashboardData$ = this.store.select(getDashboardDataSelector)
   }
   ngOnInit() {
-    this.getDasboardData()
+    this.store.dispatch(masterActions.getDashboardData())
   }
 }

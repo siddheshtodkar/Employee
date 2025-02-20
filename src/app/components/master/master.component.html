@@ -1,10 +1,11 @@
 <div class="container">
+    @if (dashboardData$ | async; as dashboardData) {
     <div class="dashboard">
         Total Clients: {{dashboardData.totalClient}},
         Total Employees: {{dashboardData.totalEmployee}},
         Total Designations: {{dashboardData.totalDesignation}}
     </div>
-
+    }
     <div class="btn-group p-3" role="group" aria-label="Basic example">
         <button type="button" class="btn" [ngClass]="componentSelected=='Roles'?'btn-success':'btn-primary'"
             (click)="componentSelected='Roles'">Role</button>

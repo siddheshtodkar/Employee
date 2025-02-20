@@ -1,7 +1,8 @@
 import { IDesignationState } from "../models/interfaces/designation";
-import { IRoleState } from "../models/interfaces/role";
+import { IDashboard, IRoleState } from "../models/interfaces/role";
 
 export interface IAppState {
     roles: IRoleState,
-    designations: IDesignationState
+    designations: IDesignationState,
+    dashboard: IDashboard
 }
