@@ -60,4 +60,16 @@ export class masterEffects {
             catchError(() => of(masterActions.getDashboardDataComplete({ dashboardData: this.emptyDashboardData })))
         ))
     ))
+    addRole$ = createEffect(() => this.actions$.pipe(
+        ofType(masterActions.addRole),
+        switchMap((action) => this.masterService.addUpdateBulkRoles(action).pipe(
+            map(masterActions.getAllRoles)
+        ))
+    ))
+    addDesignation$ = createEffect(() => this.actions$.pipe(
+        ofType(masterActions.addDesignation),
+        switchMap((action) => this.masterService.addUpdateBulkDesignation(action).pipe(
+            map(masterActions.getAllDesignations)
+        ))
+    ))
 }

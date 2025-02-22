@@ -29,4 +29,12 @@ export class MasterService {
   deleteDesignationById(id: number): Observable<IResponse> {
     return this.http.delete<IResponse>(`${this.baseUrl}/DeleteDesignationById?designationId=${id}`)
   }
+
+  // POST methods
+  addUpdateBulkRoles(body: { role: string, roleId: number }): Observable<IResponse> {
+    return this.http.post<IResponse>(`${this.baseUrl}/AddUpdateBulkRoles`, [{ role: body.role, roleId: Number(body.roleId) }])
+  }
+  addUpdateBulkDesignation(body: { designation: string, designationId: number }): Observable<IResponse> {
+    return this.http.post<IResponse>(`${this.baseUrl}/AddUpdateBulkDesignation`, [{ designation: body.designation, designationId: Number(body.designationId) }])
+  }
 }

@@ -16,3 +16,6 @@ export const deleteDesignationByIdSuccess = createAction('[Master] Delete Design
 
 export const getDashboardData = createAction('[Master] Get Dashboard Data')
 export const getDashboardDataComplete = createAction('[Master] Get Dashboard Data Complete', props<{ dashboardData: IDashboard }>())
+
+export const addRole = createAction('[Master] Add Role', props<{ role: string, roleId: number }>())
+export const addDesignation = createAction('[Master] Add Designation', props<{ designation: string, designationId: number }>())

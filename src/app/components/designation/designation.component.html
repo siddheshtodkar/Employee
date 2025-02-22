@@ -1,4 +1,14 @@
 <div class="row">
+    <div class="col-3">
+        <input type="text" class="form-control" name="designation" id="designation" placeholder="Enter Designation Name"
+            [(ngModel)]="designation">
+    </div>
+    <div class="col-3">
+        <button class="btn btn-success" (click)="addDesignation()">Add Designation</button>
+    </div>
+</div>
+<br>
+<div class="row">
     @if (designationsList$ | async; as designationsList) {
     @for (designation of designationsList; track $index) {
     <div class="card" style="width: 18rem;">
@@ -6,7 +16,7 @@
             <h5 class="card-title">{{designation.designation}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{designation.designationId}}</h6>
             <a href="#" class="card-link">Edit</a>
-            <a (click)="deleteDesignation(designation.designationId)" class="card-link">Delete</a>
+            <a (click)="deleteDesignation(designation.designationId)" class="card-link" style="cursor: pointer;">Delete</a>
         </div>
     </div>
     }
