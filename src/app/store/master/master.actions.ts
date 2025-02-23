@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { IDashboard, IRole } from "../../models/interfaces/role";
+import { IRole } from "../../models/interfaces/role";
+import { IDashboard } from "../../models/interfaces/master";
 import { IDesignation } from "../../models/interfaces/designation";
 
 export const getAllRoles = createAction('[Master] Get Roles')

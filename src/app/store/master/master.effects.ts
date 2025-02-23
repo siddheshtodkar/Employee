@@ -3,7 +3,8 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { MasterService } from "../../services/master.service";
 import * as masterActions from './master.actions'
 import { catchError, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
-import { IDashboard, IRole } from "../../models/interfaces/role";
+import { IRole } from "../../models/interfaces/role";
+import { IDashboard } from "../../models/interfaces/master";
 import { IDesignation } from "../../models/interfaces/designation";
 @Injectable()
 export class masterEffects {

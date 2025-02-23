@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { IResponse } from '../../models/interfaces/role';
+import { IResponse } from '../../models/interfaces/master';
 import { FormsModule } from '@angular/forms';
 import { Client } from '../../models/classes/client';
 import { ClientService } from '../../services/client.service';

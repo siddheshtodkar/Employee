@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClientProject, IResponse } from '../models/interfaces/role';
+import { IResponse } from '../models/interfaces/master';
+import { IClientProject } from '../models/interfaces/client';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 

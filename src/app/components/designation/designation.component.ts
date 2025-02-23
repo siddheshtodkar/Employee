@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MasterService } from '../../services/master.service';
 import { Store } from '@ngrx/store';
 import * as masterActions from '../../store/master/master.actions'

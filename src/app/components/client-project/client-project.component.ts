@@ -1,6 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IClientProject, IEmployee, IResponse } from '../../models/interfaces/role';
+import { IResponse } from '../../models/interfaces/master';
+import { IClientProject } from '../../models/interfaces/client';
+import { IEmployee } from '../../models/interfaces/employee';
 import { Client } from '../../models/classes/client';
 import { ClientService } from '../../services/client.service';
 import { EmployeeService } from '../../services/employee.service';

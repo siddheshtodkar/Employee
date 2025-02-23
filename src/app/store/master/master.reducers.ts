@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
-import { IDashboard, IRoleState } from "../../models/interfaces/role";
+import { IRoleState } from "../../models/interfaces/role";
+import { IDashboard } from "../../models/interfaces/master";
 import * as actions from "./master.actions"
 import { IDesignationState } from "../../models/interfaces/designation";
 const initialStateRole: IRoleState = {

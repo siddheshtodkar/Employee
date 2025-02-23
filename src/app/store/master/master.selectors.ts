@@ -1,6 +1,7 @@
 import { createSelector } from "@ngrx/store";
 import { IAppState } from "../app.state";
-import { IDashboard, IRoleState } from "../../models/interfaces/role";
+import { IRoleState } from "../../models/interfaces/role";
+import { IDashboard } from "../../models/interfaces/master";
 import { IDesignationState } from "../../models/interfaces/designation";
 
 export const selectRoles = (state: IAppState) => state.roles

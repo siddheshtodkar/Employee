@@ -3,7 +3,6 @@ import { RoleComponent } from '../role/role.component';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { DesignationComponent } from '../designation/designation.component';
 import { MasterService } from '../../services/master.service';
-import { IDashboard, IResponse } from '../../models/interfaces/role';
 import { Store } from '@ngrx/store';
 import * as masterActions from '../../store/master/master.actions'
 import { of } from 'rxjs';
