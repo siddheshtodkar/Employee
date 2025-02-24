@@ -1,5 +1,5 @@
 @if (message) {
-    <app-alert [alertType]="alertType" [message]="message" (closeFunction)="message=''"></app-alert>
+<app-alert [alertType]="alertType" [message]="message" (closeFunction)="message=''"></app-alert>
 }
 <div class="row m-2 mt-4">
     <div class="col-8">
@@ -20,6 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (clientList$ | async; as clientList) {
                         @for(client of clientList; track $index) {
                         <tr>
                             <td>{{$index + 1}}</td>
@@ -33,6 +34,7 @@
                                     (click)="deleteClientByClientId(client.clientId)">Delete</button>
                             </td>
                         </tr>
+                        }
                         }
                     </tbody>
                 </table>

@@ -1,9 +1,11 @@
 import { IDesignationState } from "../models/interfaces/designation";
 import { IRoleState } from "../models/interfaces/role";
 import { IDashboard } from "../models/interfaces/master";
+import { Client } from "../models/classes/client";
 
 export interface IAppState {
     roles: IRoleState,
     designations: IDesignationState,
-    dashboard: IDashboard
+    dashboard: IDashboard,
+    clients: Client[]
 }

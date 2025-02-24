@@ -10,6 +10,8 @@ import { masterDashboardReducer, masterDesignationReducer, masterRoleReducer } f
 import { importProvidersFrom } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { clientsReducer } from './store/client/client.reducers';
+import { ClientEffects } from './store/client/client.effects';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,7 +29,14 @@ export const routes: Routes = [
                 ]
             },
             { path: 'employee', component: EmployeeComponent },
-            { path: 'client', component: ClientComponent },
+            {
+                path: 'client', component: ClientComponent, providers: [
+                    importProvidersFrom(
+                        StoreModule.forFeature('clients', clientsReducer),
+                        EffectsModule.forFeature([ClientEffects])
+                    )
+                ]
+            },
             { path: 'client-project', component: ClientProjectComponent }
         ],
         loadComponent: () => import('./components/layout/layout.component').then(c => c.LayoutComponent)

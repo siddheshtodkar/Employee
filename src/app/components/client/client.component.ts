@@ -3,26 +3,31 @@ import { IResponse } from '../../models/interfaces/master';
 import { FormsModule } from '@angular/forms';
 import { Client } from '../../models/classes/client';
 import { ClientService } from '../../services/client.service';
-import { UpperCasePipe } from '@angular/common';
+import { AsyncPipe, UpperCasePipe } from '@angular/common';
 import { AlertComponent } from '../alert/alert.component';
+import * as clientActions from '../../store/client/client.actions'
+import { Store } from '@ngrx/store';
+import { getClientsSelector } from '../../store/client/client.selectors';
 
 @Component({
   selector: 'app-client',
-  imports: [FormsModule, UpperCasePipe, AlertComponent],
+  imports: [FormsModule, UpperCasePipe, AlertComponent, AsyncPipe],
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
 export class ClientComponent {
   service = inject(ClientService)
+  store = inject(Store)
   clientObj: Client = new Client()
-  clientList: Client[] = []
+  clientList$
   message: string = ''
   alertType: string = ''
-  constructor() { }
+  constructor() {
+    this.clientList$ = this.store.select(getClientsSelector)
+    this.clientList$.subscribe(console.log)
+  }
   getAllClients() {
-    this.service.getAllClients().subscribe((res: IResponse) => {
-      this.clientList = res.data as Client[]
-    })
+    this.store.dispatch(clientActions.getClients())
   }
   addUpdateClient() {
     this.service.addUpdateClient(this.clientObj).subscribe((res: IResponse) => {
