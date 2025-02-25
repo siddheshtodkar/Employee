@@ -39,12 +39,13 @@ export class ClientComponent {
     })
   }
   deleteClientByClientId(id: number) {
-    this.service.deleteClientByClientId(id).subscribe((res: IResponse) => {
-      this.alert(res.message, 'danger')
-      if (res.result) {
-        this.getAllClients()
-      }
-    })
+    // this.service.deleteClientByClientId(id).subscribe((res: IResponse) => {
+    //   this.alert(res.message, 'danger')
+    //   if (res.result) {
+    //     this.getAllClients()
+    //   }
+    // })
+    this.store.dispatch(clientActions.deleteClient({ id: id }))
   }
   alert(message: string, alertType: string) {
     this.message = message

@@ -25,4 +25,8 @@ export class ClientEffects {
             })
         )
     })
+    deleteClient$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.deleteClient),
+        switchMap((action) => this.clientService.deleteClientByClientId(action.id))
+    ), { dispatch: false })
 }
