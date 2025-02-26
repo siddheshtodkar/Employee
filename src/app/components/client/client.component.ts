@@ -24,19 +24,19 @@ export class ClientComponent {
   alertType: string = ''
   constructor() {
     this.clientList$ = this.store.select(getClientsSelector)
-    this.clientList$.subscribe(console.log)
   }
   getAllClients() {
     this.store.dispatch(clientActions.getClients())
   }
   addUpdateClient() {
-    this.service.addUpdateClient(this.clientObj).subscribe((res: IResponse) => {
-      this.alert(res.message, 'success')
-      if (res.result) {
-        this.reset()
-        this.getAllClients()
-      }
-    })
+    // this.service.addUpdateClient(this.clientObj).subscribe((res: IResponse) => {
+    //   this.alert(res.message, 'success')
+    //   if (res.result) {
+    //     this.reset()
+    //     this.getAllClients()
+    //   }
+    // })
+    this.store.dispatch(clientActions.addUpdateClient({ client: this.clientObj }))
   }
   deleteClientByClientId(id: number) {
     // this.service.deleteClientByClientId(id).subscribe((res: IResponse) => {

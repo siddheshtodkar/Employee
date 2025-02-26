@@ -29,4 +29,8 @@ export class ClientEffects {
         ofType(clientActions.deleteClient),
         switchMap((action) => this.clientService.deleteClientByClientId(action.id))
     ), { dispatch: false })
+    addUpdateClient$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.addUpdateClient),
+        switchMap((action) => this.clientService.addUpdateClient(action.client))
+    ), { dispatch: false })
 }
