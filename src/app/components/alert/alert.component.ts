@@ -1,18 +1,27 @@
-import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { alertSelector } from '../../store/master/master.selectors';
+import * as masterActions from '../../store/master/master.actions'
+import { IAlert } from '../../models/interfaces/master';
 
 @Component({
   selector: 'app-alert',
-  imports: [NgClass],
+  imports: [NgClass, AsyncPipe],
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.css'
 })
 export class AlertComponent {
-  @Input() message: string = ''
-  @Input() alertType: string = ''
-  @Output() closeFunction = new EventEmitter()
-
+  store = inject(Store)
+  alert$
+  constructor() {
+    this.alert$ = this.store.select(alertSelector)
+  }
   closeAlert() {
-    this.closeFunction.emit()
+    let emptyAlert: IAlert = {
+      message: '',
+      alertYpe: ''
+    }
+    this.store.dispatch(masterActions.showAlert({ alert: emptyAlert }))
   }
 }

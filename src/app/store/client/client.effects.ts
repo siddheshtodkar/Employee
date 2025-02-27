@@ -4,6 +4,8 @@ import * as clientActions from './client.actions'
 import { catchError, map, of, switchMap } from "rxjs";
 import { Client } from "../../models/classes/client";
 import { ClientService } from "../../services/client.service";
+import * as masterActions from '../master/master.actions'
+import { IAlert } from "../../models/interfaces/master";
 
 @Injectable()
 export class ClientEffects {
@@ -27,8 +29,17 @@ export class ClientEffects {
     })
     deleteClient$ = createEffect(() => this.actions$.pipe(
         ofType(clientActions.deleteClient),
-        switchMap((action) => this.clientService.deleteClientByClientId(action.id))
-    ), { dispatch: false })
+        switchMap((action) => this.clientService.deleteClientByClientId(action.id).pipe(
+            map((res) => {
+                let alert: IAlert = {
+                    message: res.message,
+                    alertYpe: 'danger'
+                }
+                console.log(alert)
+                return masterActions.showAlert({ alert: alert })
+            })
+        ))
+    ))
     addUpdateClient$ = createEffect(() => this.actions$.pipe(
         ofType(clientActions.addUpdateClient),
         switchMap((action) => this.clientService.addUpdateClient(action.client))
