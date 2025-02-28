@@ -1,9 +1,9 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { alertSelector } from '../../store/master/master.selectors';
-import * as masterActions from '../../store/master/master.actions'
-import { IAlert } from '../../models/interfaces/master';
+import { alertSelector } from '../../store/app/app.selectors';
+import * as appActions from '../../store/app/app.actions'
+import { IAlert } from '../../models/interfaces/app';
 
 @Component({
   selector: 'app-alert',
@@ -22,6 +22,6 @@ export class AlertComponent {
       message: '',
       alertYpe: ''
     }
-    this.store.dispatch(masterActions.showAlert({ alert: emptyAlert }))
+    this.store.dispatch(appActions.showAlert({ alert: emptyAlert }))
   }
 }

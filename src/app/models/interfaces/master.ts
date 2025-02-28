@@ -15,8 +15,3 @@ export interface IDashboard {
     totalEmployee: number,
     totalDesignation: number
 }
-
-export interface IAlert {
-    message: string,
-    alertYpe: string
-}

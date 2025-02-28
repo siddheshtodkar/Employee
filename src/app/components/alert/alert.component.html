@@ -1,4 +1,5 @@
 @if (alert$ | async; as alert) {
+@if (alert.message) {
 <div class="alert-div">
     <div class="alert alert-dismissible fade show" role="alert" [ngClass]="'alert-'+alert.alertYpe">
         {{alert.message}}
@@ -6,4 +7,5 @@
             (click)="closeAlert()"></button>
     </div>
 </div>
+}
 }

@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IRole } from "../../models/interfaces/role";
-import { IAlert, IDashboard } from "../../models/interfaces/master";
+import { IDashboard } from "../../models/interfaces/master";
 import { IDesignation } from "../../models/interfaces/designation";
 
 export const getAllRoles = createAction('[Master] Get Roles')
@@ -20,5 +20,3 @@ export const getDashboardDataComplete = createAction('[Master] Get Dashboard Dat
 
 export const addRole = createAction('[Master] Add Role', props<{ role: string, roleId: number }>())
 export const addDesignation = createAction('[Master] Add Designation', props<{ designation: string, designationId: number }>())
-
-export const showAlert = createAction('[Master] Show Alert', props<{ alert: IAlert }>())

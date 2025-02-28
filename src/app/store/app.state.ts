@@ -1,7 +1,8 @@
 import { IDesignationState } from "../models/interfaces/designation";
 import { IRoleState } from "../models/interfaces/role";
-import { IAlert, IDashboard } from "../models/interfaces/master";
+import { IDashboard } from "../models/interfaces/master";
 import { Client } from "../models/classes/client";
+import { IAlert } from "../models/interfaces/app";
 
 export interface IAppState {
     roles: IRoleState,

@@ -4,8 +4,8 @@ import * as clientActions from './client.actions'
 import { catchError, map, of, switchMap } from "rxjs";
 import { Client } from "../../models/classes/client";
 import { ClientService } from "../../services/client.service";
-import * as masterActions from '../master/master.actions'
-import { IAlert } from "../../models/interfaces/master";
+import * as appActions from '../app/app.actions'
+import { IAlert } from "../../models/interfaces/app";
 
 @Injectable()
 export class ClientEffects {
@@ -35,8 +35,7 @@ export class ClientEffects {
                     message: res.message,
                     alertYpe: 'danger'
                 }
-                console.log(alert)
-                return masterActions.showAlert({ alert: alert })
+                return appActions.showAlert({ alert: alert })
             })
         ))
     ))

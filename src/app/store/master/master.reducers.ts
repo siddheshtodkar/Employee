@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { IRoleState } from "../../models/interfaces/role";
-import { IAlert, IDashboard } from "../../models/interfaces/master";
+import { IDashboard } from "../../models/interfaces/master";
 import * as actions from "./master.actions"
 import { IDesignationState } from "../../models/interfaces/designation";
 const initialStateRole: IRoleState = {
@@ -17,11 +17,6 @@ const initialDashboardState: IDashboard = {
     totalClient: 0,
     totalDesignation: 0,
     totalEmployee: 0
-}
-
-const initialAlertReducer: IAlert = {
-    message: '',
-    alertYpe: ''
 }
 
 export const masterRoleReducer = createReducer(
@@ -41,9 +36,4 @@ export const masterDesignationReducer = createReducer(
 export const masterDashboardReducer = createReducer(
     initialDashboardState,
     on(actions.getDashboardDataComplete, (state: IDashboard, { dashboardData }) => dashboardData)
-)
-
-export const masterAlertReducer = createReducer(
-    initialAlertReducer,
-    on(actions.showAlert, (state: IAlert, { alert }) => alert)
 )
