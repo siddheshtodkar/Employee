@@ -13,7 +13,7 @@ export class ClientEffects {
     clientService = inject(ClientService)
     getClients$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(clientActions.getClients),
+            ofType(clientActions.getClients, clientActions.addUpdateClientComplete, clientActions.deleteClientComplete),
             switchMap(() => {
                 return this.clientService.getAllClients().pipe(
                     map((res) => {
@@ -35,12 +35,24 @@ export class ClientEffects {
                     message: res.message,
                     alertYpe: 'danger'
                 }
-                return appActions.showAlert({ alert: alert })
+                return clientActions.deleteClientComplete({ alert: alert })
             })
         ))
     ))
     addUpdateClient$ = createEffect(() => this.actions$.pipe(
         ofType(clientActions.addUpdateClient),
-        switchMap((action) => this.clientService.addUpdateClient(action.client))
-    ), { dispatch: false })
+        switchMap((action) => this.clientService.addUpdateClient(action.client).pipe(
+            map((res) => {
+                let alert: IAlert = {
+                    message: res.message,
+                    alertYpe: 'success'
+                }
+                return clientActions.addUpdateClientComplete({ alert: alert })
+            })
+        ))
+    ))
+    showAlert$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.addUpdateClientComplete, clientActions.deleteClientComplete),
+        map((action) => appActions.showAlert({ alert: action.alert }))
+    ))
 }
