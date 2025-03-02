@@ -25,28 +25,11 @@ export class ClientComponent {
     this.store.dispatch(clientActions.getClients())
   }
   addUpdateClient() {
-    // this.service.addUpdateClient(this.clientObj).subscribe((res: IResponse) => {
-    //   this.alert(res.message, 'success')
-    //   if (res.result) {
-    //     this.reset()
-    //     this.getAllClients()
-    //   }
-    // })
     this.store.dispatch(clientActions.addUpdateClient({ client: this.clientObj }))
   }
   deleteClientByClientId(id: number) {
-    // this.service.deleteClientByClientId(id).subscribe((res: IResponse) => {
-    //   this.alert(res.message, 'danger')
-    //   if (res.result) {
-    //     this.getAllClients()
-    //   }
-    // })
     this.store.dispatch(clientActions.deleteClient({ id: id }))
   }
-  // alert(message: string, alertType: string) {
-  //   this.message = message
-  //   this.alertType = alertType
-  // }
   reset() {
     this.clientObj = new Client()
   }

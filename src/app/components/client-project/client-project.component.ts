@@ -2,20 +2,23 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IResponse } from '../../models/interfaces/master';
 import { IClientProject } from '../../models/interfaces/client';
-import { IEmployee } from '../../models/interfaces/employee';
 import { Client } from '../../models/classes/client';
 import { ClientService } from '../../services/client.service';
 import { EmployeeService } from '../../services/employee.service';
 import { ClientProjectService } from '../../services/client-project.service';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { getEmployeeSelector } from '../../store/employee/employee.selectors';
+import * as employeeActions from '../../store/employee/employee.actions'
 
 @Component({
   selector: 'app-client-project',
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, AsyncPipe],
   templateUrl: './client-project.component.html',
   styleUrl: './client-project.component.css'
 })
 export class ClientProjectComponent {
+  store = inject(Store)
   projectForm: FormGroup = new FormGroup({
     "clientProjectId": new FormControl(0),
     "projectName": new FormControl("", [Validators.required, Validators.minLength(5)]),
@@ -31,24 +34,22 @@ export class ClientProjectComponent {
     "contactPersonEmailId": new FormControl(""),
     "clientId": new FormControl(0)
   })
-  employeeList: IEmployee[] = []
+  employeeList$
   clientList: Client[] = []
   clientProjectList = signal<IClientProject[]>([])
   clientService = inject(ClientService)
   employeeService = inject(EmployeeService)
   clientProjectService = inject(ClientProjectService)
-  // message: string = ''
-  // alertType: string = ''
-  constructor() { }
+  constructor() {
+    this.employeeList$ = this.store.select(getEmployeeSelector)
+  }
   getAllClients() {
     this.clientService.getAllClients().subscribe((res: IResponse) => {
       this.clientList = res.data as Client[]
     })
   }
   getAllEmployee() {
-    this.employeeService.getAllEmployee().subscribe((res: IResponse) => {
-      this.employeeList = res.data as IEmployee[]
-    })
+    this.store.dispatch(employeeActions.getEmployees())
   }
   getAllClientProjects() {
     this.clientProjectService.getAllClientProjects().subscribe((res: IResponse) => {
@@ -57,7 +58,7 @@ export class ClientProjectComponent {
   }
   addUpdateClientProject() {
     this.clientProjectService.addUpdateClientProject(this.projectForm.getRawValue()).subscribe((res: IResponse) => {
-      this.alert(res.message, 'success')
+      // this.alert(res.message, 'success')
       if (res.result) {
         this.reset()
         this.getAllClientProjects()
@@ -65,10 +66,6 @@ export class ClientProjectComponent {
     })
   }
   reset() { }
-  alert(message: string, alertType: string) {
-    // this.message = message
-    // this.alertType = alertType
-  }
   ngOnInit() {
     this.getAllClientProjects()
     this.getAllClients()

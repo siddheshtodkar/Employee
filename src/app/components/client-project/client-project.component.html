@@ -69,8 +69,10 @@
                         <div class="col-6">
                             <label for="leadByEmpId">Employee lead</label>
                             <select formControlName="leadByEmpId" class="form-control">
+                                @if (employeeList$ | async; as employeeList) {
                                 @for (employee of employeeList; track $index) {
                                 <option [value]="employee.empId">{{employee.empName}} - {{employee.empCode}}</option>
+                                }
                                 }
                             </select>
                         </div>

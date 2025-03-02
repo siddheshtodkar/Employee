@@ -13,6 +13,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { clientsReducer } from './store/client/client.reducers';
 import { ClientEffects } from './store/client/client.effects';
 import { appAlertReducer } from './store/app/app.reducers';
+import { employeeEffects } from './store/employee/employee.effects';
+import { getEmployeeReducer } from './store/employee/employee.reducers';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,7 +40,14 @@ export const routes: Routes = [
                     )
                 ]
             },
-            { path: 'client-project', component: ClientProjectComponent }
+            {
+                path: 'client-project', component: ClientProjectComponent, providers: [
+                    importProvidersFrom(
+                        StoreModule.forFeature('employees', getEmployeeReducer),
+                        EffectsModule.forFeature([employeeEffects])
+                    )
+                ]
+            }
         ],
         providers: [
             importProvidersFrom(
