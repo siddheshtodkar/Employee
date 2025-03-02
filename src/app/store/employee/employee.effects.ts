@@ -13,7 +13,6 @@ export class employeeEffects {
     getEmployees$ = createEffect(() => this.actions$.pipe(
         ofType(employeeActions.getEmployees),
         mergeMap(() => this.employeeService.getAllEmployee().pipe(
-            tap(console.log),
             map((res: IResponse) => employeeActions.getEmployeesComplete({ employees: res.data as IEmployee[] })),
             catchError((error) => of(employeeActions.getEmployeesComplete({ employees: [] })))
         ))

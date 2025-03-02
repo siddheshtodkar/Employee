@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IResponse } from '../../models/interfaces/master';
 import { IClientProject } from '../../models/interfaces/client';
-import { Client } from '../../models/classes/client';
 import { ClientService } from '../../services/client.service';
 import { EmployeeService } from '../../services/employee.service';
 import { ClientProjectService } from '../../services/client-project.service';
@@ -10,6 +9,8 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { getEmployeeSelector } from '../../store/employee/employee.selectors';
 import * as employeeActions from '../../store/employee/employee.actions'
+import * as clientActions from '../../store/client/client.actions'
+import { getClientsSelector } from '../../store/client/client.selectors';
 
 @Component({
   selector: 'app-client-project',
@@ -35,18 +36,17 @@ export class ClientProjectComponent {
     "clientId": new FormControl(0)
   })
   employeeList$
-  clientList: Client[] = []
+  clientList$
   clientProjectList = signal<IClientProject[]>([])
   clientService = inject(ClientService)
   employeeService = inject(EmployeeService)
   clientProjectService = inject(ClientProjectService)
   constructor() {
     this.employeeList$ = this.store.select(getEmployeeSelector)
+    this.clientList$ = this.store.select(getClientsSelector)
   }
   getAllClients() {
-    this.clientService.getAllClients().subscribe((res: IResponse) => {
-      this.clientList = res.data as Client[]
-    })
+    this.store.dispatch(clientActions.getClients())
   }
   getAllEmployee() {
     this.store.dispatch(employeeActions.getEmployees())

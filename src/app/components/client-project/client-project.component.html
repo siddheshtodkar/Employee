@@ -107,8 +107,10 @@
                         <div class="col-6">
                             <label for="clientId">clientId</label>
                             <select formControlName="clientId" class="form-control">
+                                @if (clientList$ | async; as clientList) {
                                 @for (client of clientList; track $index) {
                                 <option [value]="client.clientId">{{client.contactPersonName}}</option>
+                                }
                                 }
                             </select>
                         </div>

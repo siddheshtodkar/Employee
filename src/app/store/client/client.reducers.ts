@@ -6,5 +6,5 @@ export const initialState: Client[] = []
 
 export const clientsReducer = createReducer(
     initialState,
-    on(clientActions.getClientsComplete, (state: Client[], { clients }) => clients)
+    on(clientActions.getClientsComplete, (state: Client[], { clients }) => JSON.parse(JSON.stringify(clients)))
 )

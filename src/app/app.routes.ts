@@ -44,7 +44,8 @@ export const routes: Routes = [
                 path: 'client-project', component: ClientProjectComponent, providers: [
                     importProvidersFrom(
                         StoreModule.forFeature('employees', getEmployeeReducer),
-                        EffectsModule.forFeature([employeeEffects])
+                        StoreModule.forFeature('clients', clientsReducer),
+                        EffectsModule.forFeature([employeeEffects, ClientEffects])
                     )
                 ]
             }
