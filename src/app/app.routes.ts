@@ -10,7 +10,7 @@ import { masterDashboardReducer, masterDesignationReducer, masterRoleReducer } f
 import { importProvidersFrom } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { clientsReducer } from './store/client/client.reducers';
+import { clientProjectsReducer, clientsReducer } from './store/client/client.reducers';
 import { ClientEffects } from './store/client/client.effects';
 import { appAlertReducer } from './store/app/app.reducers';
 import { employeeEffects } from './store/employee/employee.effects';
@@ -45,6 +45,7 @@ export const routes: Routes = [
                     importProvidersFrom(
                         StoreModule.forFeature('employees', getEmployeeReducer),
                         StoreModule.forFeature('clients', clientsReducer),
+                        StoreModule.forFeature('clientProjects', clientProjectsReducer),
                         EffectsModule.forFeature([employeeEffects, ClientEffects])
                     )
                 ]

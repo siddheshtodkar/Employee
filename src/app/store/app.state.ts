@@ -4,6 +4,7 @@ import { IDashboard } from "../models/interfaces/master";
 import { Client } from "../models/classes/client";
 import { IAlert } from "../models/interfaces/app";
 import { IEmployee } from "../models/interfaces/employee";
+import { IClientProject } from "../models/interfaces/client";
 
 export interface IAppState {
     roles: IRoleState,
@@ -11,5 +12,6 @@ export interface IAppState {
     dashboard: IDashboard,
     clients: Client[],
     alert: IAlert,
-    employees: IEmployee[]
+    employees: IEmployee[],
+    clientProjects: IClientProject[]
 }

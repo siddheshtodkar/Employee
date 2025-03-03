@@ -1,16 +1,19 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as clientActions from './client.actions'
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, map, mergeMap, of, switchMap } from "rxjs";
 import { Client } from "../../models/classes/client";
 import { ClientService } from "../../services/client.service";
 import * as appActions from '../app/app.actions'
 import { IAlert } from "../../models/interfaces/app";
+import { ClientProjectService } from "../../services/client-project.service";
+import { IClientProject } from "../../models/interfaces/client";
 
 @Injectable()
 export class ClientEffects {
     actions$ = inject(Actions)
     clientService = inject(ClientService)
+    clientProjectService = inject(ClientProjectService)
     getClients$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(clientActions.getClients, clientActions.addUpdateClientComplete, clientActions.deleteClientComplete),
@@ -54,5 +57,11 @@ export class ClientEffects {
     showAlert$ = createEffect(() => this.actions$.pipe(
         ofType(clientActions.addUpdateClientComplete, clientActions.deleteClientComplete),
         map((action) => appActions.showAlert({ alert: action.alert }))
+    ))
+    getAllClientProjects$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.getAllClientProjects),
+        mergeMap(() => this.clientProjectService.getAllClientProjects().pipe(
+            map((res) => clientActions.getAllClientProjectsComplete({ clientProjects: res.data as IClientProject[] }))
+        ))
     ))
 }

@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IResponse } from '../../models/interfaces/master';
-import { IClientProject } from '../../models/interfaces/client';
 import { ClientService } from '../../services/client.service';
 import { EmployeeService } from '../../services/employee.service';
 import { ClientProjectService } from '../../services/client-project.service';
@@ -10,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { getEmployeeSelector } from '../../store/employee/employee.selectors';
 import * as employeeActions from '../../store/employee/employee.actions'
 import * as clientActions from '../../store/client/client.actions'
-import { getClientsSelector } from '../../store/client/client.selectors';
+import { getClientProjectsSelector, getClientsSelector } from '../../store/client/client.selectors';
 
 @Component({
   selector: 'app-client-project',
@@ -37,13 +36,14 @@ export class ClientProjectComponent {
   })
   employeeList$
   clientList$
-  clientProjectList = signal<IClientProject[]>([])
+  clientProjectList$
   clientService = inject(ClientService)
   employeeService = inject(EmployeeService)
   clientProjectService = inject(ClientProjectService)
   constructor() {
     this.employeeList$ = this.store.select(getEmployeeSelector)
     this.clientList$ = this.store.select(getClientsSelector)
+    this.clientProjectList$ = this.store.select(getClientProjectsSelector)
   }
   getAllClients() {
     this.store.dispatch(clientActions.getClients())
@@ -52,9 +52,7 @@ export class ClientProjectComponent {
     this.store.dispatch(employeeActions.getEmployees())
   }
   getAllClientProjects() {
-    this.clientProjectService.getAllClientProjects().subscribe((res: IResponse) => {
-      this.clientProjectList.set(res.data as IClientProject[])
-    })
+    this.store.dispatch(clientActions.getAllClientProjects())
   }
   addUpdateClientProject() {
     this.clientProjectService.addUpdateClientProject(this.projectForm.getRawValue()).subscribe((res: IResponse) => {
